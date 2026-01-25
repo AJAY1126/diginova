@@ -1,0 +1,462 @@
+import { useState, useEffect, useRef } from 'react'
+import type { FormEvent } from 'react'
+import './App.css'
+
+interface MousePosition {
+  x: number
+  y: number
+}
+
+function App() {
+  const [mousePosition, setMousePosition] = useState<MousePosition>({ x: 0, y: 0 })
+  const [scrollProgress, setScrollProgress] = useState(0)
+  const [activeNav, setActiveNav] = useState('home')
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [carouselIndex, setCarouselIndex] = useState(0)
+  const [visibleSections, setVisibleSections] = useState<Record<string, boolean>>({})
+  const cursorRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({ x: e.clientX, y: e.clientY })
+      if (cursorRef.current) {
+        cursorRef.current.style.left = e.clientX + 'px'
+        cursorRef.current.style.top = e.clientY + 'px'
+      }
+    }
+
+    const handleScroll = () => {
+      const scrollTop = window.scrollY
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight
+      const progress = docHeight > 0 ? scrollTop / docHeight : 0
+      setScrollProgress(progress)
+    }
+
+    window.addEventListener('mousemove', handleMouseMove)
+    window.addEventListener('scroll', handleScroll)
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove)
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
+  const handleNavClick = (section: string) => {
+    setActiveNav(section)
+    setMobileMenuOpen(false)
+  }
+
+  // Carousel auto-rotation
+  useEffect(() => {
+    const carouselInterval = setInterval(() => {
+      setCarouselIndex((prev) => (prev + 1) % 6)
+    }, 5000)
+    return () => clearInterval(carouselInterval)
+  }, [])
+
+  // Intersection Observer for on-scroll animations
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setVisibleSections((prev) => ({
+              ...prev,
+              [entry.target.id]: true,
+            }))
+          }
+        })
+      },
+      { threshold: 0.1 }
+    )
+
+    const sections = document.querySelectorAll('[data-scroll-animate]')
+    sections.forEach((section) => observer.observe(section))
+
+    return () => observer.disconnect()
+  }, [])
+
+  return (
+    <div className="app">
+      {/* Custom Cursor */}
+      <div
+        ref={cursorRef}
+        className="custom-cursor"
+        style={{
+          left: mousePosition.x,
+          top: mousePosition.y,
+        }}
+      >
+        <div className="cursor-dot"></div>
+        <div className="cursor-ring"></div>
+      </div>
+
+      {/* Scroll Progress Bar */}
+      <div className="scroll-progress" style={{ width: `${scrollProgress * 100}%` }}></div>
+
+      {/* Navigation */}
+      <nav className="navbar">
+        <div className="nav-container">
+          <div className="logo-section">
+            <div className="logo-icon">✦</div>
+            <span className="company-name">DIGINOVA</span>
+          </div>
+
+          {/* Hamburger Menu Button */}
+          <button
+            className={`hamburger ${mobileMenuOpen ? 'active' : ''}`}
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+
+          <ul className={`nav-links ${mobileMenuOpen ? 'active' : ''}`}>
+            <li>
+              <a href="#home" className={activeNav === 'home' ? 'active' : ''} onClick={() => handleNavClick('home')}>
+                Home
+              </a>
+            </li>
+            <li>
+              <a href="#services" className={activeNav === 'services' ? 'active' : ''} onClick={() => handleNavClick('services')}>
+                Services
+              </a>
+            </li>
+            <li>
+              <a href="#portfolio" className={activeNav === 'portfolio' ? 'active' : ''} onClick={() => handleNavClick('portfolio')}>
+                Portfolio
+              </a>
+            </li>
+            <li>
+              <a href="#contact" className={activeNav === 'contact' ? 'active' : ''} onClick={() => handleNavClick('contact')}>
+                Contact
+              </a>
+            </li>
+            <li className="mobile-cta">
+              <button className="cta-button">Get Started</button>
+            </li>
+          </ul>
+
+          <button className="cta-button desktop-cta">Get Started</button>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <section id="home" className="hero">
+        <div className="hero-background">
+          <div className="gradient-blob blob-1"></div>
+          <div className="gradient-blob blob-2"></div>
+          <div className="gradient-blob blob-3"></div>
+        </div>
+
+        <div className="hero-content">
+          <div
+            className="hero-text fadeInUp"
+            style={{
+              opacity: Math.max(0, 1 - scrollProgress * 2),
+              transform: `translateY(${Math.min(100, scrollProgress * 500)}px)`,
+            }}
+          >
+            <h1 className="hero-title">Transform Your Digital Presence</h1>
+            <p className="hero-subtitle">
+              Unlock unprecedented growth with cutting-edge digital marketing strategies
+            </p>
+            <div className="hero-buttons">
+              <button className="btn btn-primary">Start Your Journey</button>
+              <button className="btn btn-secondary">Learn More</button>
+            </div>
+          </div>
+
+          <div
+            className="hero-image"
+            style={{
+              transform: `translateY(${scrollProgress * 100}px) translateX(${mousePosition.x * 0.02}px)`,
+            }}
+          >
+            <div className="floating-card card-1">
+              <div className="card-content">📊</div>
+            </div>
+            <div className="floating-card card-2">
+              <div className="card-content">🚀</div>
+            </div>
+            <div className="floating-card card-3">
+              <div className="card-content">💡</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <ContactSection />
+
+      {/* Stats Section */}
+      <section className="stats">
+        <div className="glass-container">
+          <div className="stat-item">
+            <h3>500+</h3>
+            <p>Projects Completed</p>
+          </div>
+          <div className="stat-item">
+            <h3>98%</h3>
+            <p>Client Satisfaction</p>
+          </div>
+          <div className="stat-item">
+            <h3>150+</h3>
+            <p>Happy Clients</p>
+          </div>
+          <div className="stat-item">
+            <h3>10+</h3>
+            <p>Years Experience</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Services Section */}
+      <section id="services" className="services" data-scroll-animate>
+        <div className="section-header">
+          <h2>Our Services</h2>
+          <p>Comprehensive digital solutions tailored for your business</p>
+        </div>
+
+        {/* Image Carousel */}
+        <div className="carousel-container">
+          <div className="carousel-wrapper">
+            <div
+              className="carousel-track"
+              style={{
+                transform: `translateX(-${carouselIndex * 100}%)`,
+              }}
+            >
+              {[
+                { id: 1, image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&h=400&fit=crop', title: 'Brand Design' },
+                { id: 2, image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=600&h=400&fit=crop', title: 'Web Development' },
+                { id: 3, image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop', title: 'Digital Marketing' },
+                { id: 4, image: 'https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=600&h=400&fit=crop', title: 'SEO Optimization' },
+                { id: 5, image: 'https://images.unsplash.com/photo-1611532736579-6b16e2b50449?w=600&h=400&fit=crop', title: 'Social Media' },
+                { id: 6, image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop', title: 'Analytics' },
+              ].map((slide) => (
+                <div key={slide.id} className="carousel-slide">
+                  <img src={slide.image} alt={slide.title} />
+                  <div className="carousel-overlay">
+                    <h3>{slide.title}</h3>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Carousel Controls */}
+          <button
+            className="carousel-button carousel-prev"
+            onClick={() => setCarouselIndex((prev) => (prev - 1 + 6) % 6)}
+          >
+            ‹
+          </button>
+          <button
+            className="carousel-button carousel-next"
+            onClick={() => setCarouselIndex((prev) => (prev + 1) % 6)}
+          >
+            ›
+          </button>
+
+          {/* Carousel Indicators */}
+          <div className="carousel-indicators">
+            {[0, 1, 2, 3, 4, 5].map((index) => (
+              <button
+                key={index}
+                className={`indicator ${carouselIndex === index ? 'active' : ''}`}
+                onClick={() => setCarouselIndex(index)}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Services Grid */}
+        <div className="services-grid">
+          {[
+            {
+              icon: '🎨',
+              title: 'Brand Design',
+              description: 'Stunning visual identities that capture your essence',
+            },
+            {
+              icon: '📱',
+              title: 'Web Development',
+              description: 'Responsive, fast, and beautiful websites',
+            },
+            {
+              icon: '📈',
+              title: 'Digital Marketing',
+              description: 'Strategies that drive growth and engagement',
+            },
+            {
+              icon: '🏆',
+              title: 'SEO Optimization',
+              description: 'Boost your visibility in search results',
+            },
+            {
+              icon: '💬',
+              title: 'Social Media',
+              description: 'Build meaningful connections with your audience',
+            },
+            {
+              icon: '📊',
+              title: 'Analytics',
+              description: 'Data-driven insights for better decisions',
+            },
+          ].map((service, index) => (
+            <div
+              key={index}
+              className={`service-card ${visibleSections['services'] ? 'animate-in' : ''}`}
+              style={{
+                animationDelay: `${index * 0.1}s`,
+              }}
+            >
+              <div className="service-icon">{service.icon}</div>
+              <h3>{service.title}</h3>
+              <p>{service.description}</p>
+              <div className="service-overlay"></div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Portfolio Section */}
+      <section id="portfolio" className="portfolio">
+        <div className="section-header">
+          <h2>Our Work</h2>
+          <p>Showcasing our best creations and results</p>
+        </div>
+
+        <div className="portfolio-grid">
+          {[
+            { title: 'E-Commerce Platform', category: 'Web Development' },
+            { title: 'Brand Identity', category: 'Design' },
+            { title: 'Marketing Campaign', category: 'Marketing' },
+            { title: 'Mobile App', category: 'Development' },
+          ].map((item, index) => (
+            <div key={index} className="portfolio-item">
+              <div className="portfolio-bg"></div>
+              <div className="portfolio-content">
+                <h3>{item.title}</h3>
+                <p>{item.category}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="cta-section">
+        <div className="cta-content">
+          <h2>Ready to Transform Your Business?</h2>
+          <p>Let's create something amazing together</p>
+          <button className="btn btn-primary btn-large">Get Started Today</button>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="footer">
+        <div className="footer-content">
+          <div className="footer-section">
+            <h4>DIGINOVA</h4>
+            <p>Your partner in digital transformation</p>
+          </div>
+          <div className="footer-section">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="#">About</a></li>
+              <li><a href="#">Services</a></li>
+              <li><a href="#">Portfolio</a></li>
+            </ul>
+          </div>
+          <div className="footer-section">
+            <h4>Contact</h4>
+            <p>hello@diginova.com</p>
+            <p>+1 (555) 123-4567</p>
+          </div>
+        </div>
+        <div className="footer-bottom">
+          <p>&copy; 2026 DIGINOVA. All rights reserved.</p>
+        </div>
+      </footer>
+    </div>
+  )
+}
+
+export default App
+
+// Contact section component
+function ContactSection() {
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [message, setMessage] = useState('')
+  const [submitted, setSubmitted] = useState(false)
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault()
+    // Basic client-side validation
+    if (!name || !email || !message) {
+      alert('Please fill all fields before submitting.')
+      return
+    }
+    setSubmitted(true)
+    setTimeout(() => {
+      setName('')
+      setEmail('')
+      setMessage('')
+      setSubmitted(false)
+      alert('Thanks! Your message has been received.')
+    }, 800)
+  }
+
+  return (
+    <section id="contact" className="contact-section" data-scroll-animate>
+      <div className="contact-container">
+        <div className="contact-left">
+          <div className="contact-card">
+            <h2>Let's create something beautiful</h2>
+            <p className="muted">Reach out to us and we'll get back within 24 hours.</p>
+
+            <div className="contact-meta">
+              <div>
+                <strong>Email</strong>
+                <p>hello@diginova.com</p>
+              </div>
+              <div>
+                <strong>Phone</strong>
+                <p>+1 (555) 123-4567</p>
+              </div>
+            </div>
+
+            <div className="social-icons" aria-hidden>
+              {/* Inline SVG icons */}
+              <a href="#" className="social" aria-label="Twitter">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53A4.48 4.48 0 0 0 22.43 1s-1 .6-1.46.76A4.48 4.48 0 0 0 16.5 0c-2.5 0-4.5 2.2-4.5 4.9 0 .38.04.75.12 1.1C8 6 4.3 4 1.9 1.2c-.4.7-.6 1.5-.6 2.4 0 1.7.8 3.2 2 4.1A4.4 4.4 0 0 1 .8 7v.1c0 2.3 1.6 4.2 3.8 4.6-.3.08-.6.12-.9.12-.2 0-.4 0-.6-.06.4 1.3 1.6 2.3 3 2.3A9 9 0 0 1 0 18.6a12.7 12.7 0 0 0 6.9 2c8.3 0 12.9-7.6 12.9-14.2v-.65A9.1 9.1 0 0 0 23 3z" /></svg>
+              </a>
+              <a href="#" className="social" aria-label="LinkedIn">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.49 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.5 8h3.98V24H.5V8zM8.5 8h3.82v2.17h.05c.53-1 1.83-2.17 3.76-2.17 4.02 0 4.76 2.65 4.76 6.1V24h-3.98v-7.4c0-1.77-.03-4.05-2.47-4.05-2.48 0-2.86 1.94-2.86 3.94V24H8.5V8z" /></svg>
+              </a>
+              <a href="#" className="social" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 5.8a4.2 4.2 0 1 0 0 8.4 4.2 4.2 0 0 0 0-8.4zM19.5 6.1a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4z" /></svg>
+              </a>
+              <a href="#" className="social" aria-label="GitHub">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5A12 12 0 0 0 0 12.5c0 5.3 3.4 9.8 8.2 11.4.6.1.8-.3.8-.6v-2.1c-3.3.7-4-1.6-4-1.6-.5-1.3-1.2-1.6-1.2-1.6-1-.7.1-.7.1-.7 1.1.1 1.7 1.1 1.7 1.1 1 .1 1.6.7 1.8 1 .6 1.1 1.6.8 2 .6.1-.7.4-1.2.6-1.5-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.6.1-3.2 0 0 1-.3 3.4 1.2a11.6 11.6 0 0 1 6.2 0C18 6.9 19 7.2 19 7.2c.6 1.6.2 2.9.1 3.2.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.3.7.9.7 1.9v2.9c0 .3.2.7.8.6A12 12 0 0 0 12 .5z" /></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <form className="contact-form" onSubmit={handleSubmit}>
+          <h3>Send us a message</h3>
+          <div className="form-grid">
+            <input type="text" placeholder="Your name" value={name} onChange={(e) => setName(e.target.value)} />
+            <input type="email" placeholder="Email address" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <textarea placeholder="Tell us about your project" value={message} onChange={(e) => setMessage(e.target.value)} />
+          </div>
+          <button className="btn btn-primary" type="submit" disabled={submitted}>{submitted ? 'Sending...' : 'Send Message'}</button>
+        </form>
+      </div>
+    </section>
+  )
+}
