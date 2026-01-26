@@ -145,6 +145,26 @@ body {
   font-weight: 500;
 }
 
+.nav-links .nav-link {
+  text-decoration: none;
+  color: var(--light);
+  position: relative;
+  transition: color 0.3s ease;
+  font-weight: 500;
+  display: inline-block;
+}
+
+.nav-links .nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  transition: width 0.3s ease;
+}
+
 .nav-links a::after {
   content: '';
   position: absolute;
@@ -157,7 +177,9 @@ body {
 }
 
 .nav-links a:hover::after,
-.nav-links a.active::after {
+.nav-links a.active::after,
+.nav-links .nav-link:hover::after,
+.nav-links .nav-link.active::after {
   width: 100%;
 }
 

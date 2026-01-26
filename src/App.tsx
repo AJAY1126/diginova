@@ -1,6 +1,15 @@
 import { useState, useEffect, useRef } from 'react'
 import type { FormEvent } from 'react'
 import './App.css'
+import './styles/index.css'
+import {
+  DesignSystems,
+  SocialMediaGrowth,
+  WebsiteAppDevelopment,
+  SocialMediaManagement,
+  InfluencerGrowth,
+  SmallBusinessEnablement,
+} from './pages'
 
 interface MousePosition {
   x: number
@@ -12,8 +21,8 @@ function App() {
   const [scrollProgress, setScrollProgress] = useState(0)
   const [activeNav, setActiveNav] = useState('home')
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [carouselIndex, setCarouselIndex] = useState(0)
   const [visibleSections, setVisibleSections] = useState<Record<string, boolean>>({})
+  const [currentPage, setCurrentPage] = useState<'home' | 'design' | 'socialmedia' | 'webdev' | 'management' | 'influencer' | 'smallbusiness'>('home')
   const cursorRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -46,14 +55,6 @@ function App() {
     setMobileMenuOpen(false)
   }
 
-  // Carousel auto-rotation
-  useEffect(() => {
-    const carouselInterval = setInterval(() => {
-      setCarouselIndex((prev) => (prev + 1) % 6)
-    }, 5000)
-    return () => clearInterval(carouselInterval)
-  }, [])
-
   // Intersection Observer for on-scroll animations
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -76,6 +77,15 @@ function App() {
     return () => observer.disconnect()
   }, [])
 
+  // Render service pages
+  if (currentPage === 'design') return <DesignSystems />
+  if (currentPage === 'socialmedia') return <SocialMediaGrowth />
+  if (currentPage === 'webdev') return <WebsiteAppDevelopment />
+  if (currentPage === 'management') return <SocialMediaManagement />
+  if (currentPage === 'influencer') return <InfluencerGrowth />
+  if (currentPage === 'smallbusiness') return <SmallBusinessEnablement />
+
+  // Home page
   return (
     <div className="app">
       {/* Custom Cursor */}
@@ -97,10 +107,14 @@ function App() {
       {/* Navigation */}
       <nav className="navbar">
         <div className="nav-container">
-          <div className="logo-section">
+          <button
+            className="logo-section"
+            onClick={() => setCurrentPage('home')}
+            style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+          >
             <div className="logo-icon">✦</div>
             <span className="company-name">DIGINOVA</span>
-          </div>
+          </button>
 
           {/* Hamburger Menu Button */}
           <button
@@ -114,14 +128,29 @@ function App() {
 
           <ul className={`nav-links ${mobileMenuOpen ? 'active' : ''}`}>
             <li>
-              <a href="#home" className={activeNav === 'home' ? 'active' : ''} onClick={() => handleNavClick('home')}>
+              <button
+                className={`nav-link ${activeNav === 'home' ? 'active' : ''}`}
+                onClick={() => {
+                  setCurrentPage('home')
+                  setActiveNav('home')
+                  setMobileMenuOpen(false)
+                }}
+                style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, color: 'inherit', font: 'inherit' }}
+              >
                 Home
-              </a>
+              </button>
             </li>
             <li>
-              <a href="#services" className={activeNav === 'services' ? 'active' : ''} onClick={() => handleNavClick('services')}>
+              <button
+                className={`nav-link ${activeNav === 'services' ? 'active' : ''}`}
+                onClick={() => {
+                  setActiveNav('services')
+                  setMobileMenuOpen(false)
+                }}
+                style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, color: 'inherit', font: 'inherit' }}
+              >
                 Services
-              </a>
+              </button>
             </li>
             <li>
               <a href="#portfolio" className={activeNav === 'portfolio' ? 'active' : ''} onClick={() => handleNavClick('portfolio')}>
@@ -218,105 +247,63 @@ function App() {
           <p>Comprehensive digital solutions tailored for your business</p>
         </div>
 
-        {/* Image Carousel */}
-        <div className="carousel-container">
-          <div className="carousel-wrapper">
-            <div
-              className="carousel-track"
-              style={{
-                transform: `translateX(-${carouselIndex * 100}%)`,
-              }}
-            >
-              {[
-                { id: 1, image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&h=400&fit=crop', title: 'Brand Design' },
-                { id: 2, image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=600&h=400&fit=crop', title: 'Web Development' },
-                { id: 3, image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop', title: 'Digital Marketing' },
-                { id: 4, image: 'https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=600&h=400&fit=crop', title: 'SEO Optimization' },
-                { id: 5, image: 'https://images.unsplash.com/photo-1611532736579-6b16e2b50449?w=600&h=400&fit=crop', title: 'Social Media' },
-                { id: 6, image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop', title: 'Analytics' },
-              ].map((slide) => (
-                <div key={slide.id} className="carousel-slide">
-                  <img src={slide.image} alt={slide.title} />
-                  <div className="carousel-overlay">
-                    <h3>{slide.title}</h3>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Carousel Controls */}
-          <button
-            className="carousel-button carousel-prev"
-            onClick={() => setCarouselIndex((prev) => (prev - 1 + 6) % 6)}
-          >
-            ‹
-          </button>
-          <button
-            className="carousel-button carousel-next"
-            onClick={() => setCarouselIndex((prev) => (prev + 1) % 6)}
-          >
-            ›
-          </button>
-
-          {/* Carousel Indicators */}
-          <div className="carousel-indicators">
-            {[0, 1, 2, 3, 4, 5].map((index) => (
-              <button
-                key={index}
-                className={`indicator ${carouselIndex === index ? 'active' : ''}`}
-                onClick={() => setCarouselIndex(index)}
-              />
-            ))}
-          </div>
-        </div>
-
         {/* Services Grid */}
         <div className="services-grid">
           {[
             {
               icon: '🎨',
-              title: 'Brand Design',
-              description: 'Stunning visual identities that capture your essence',
+              title: 'Visual Communication',
+              description: 'Posters, Brochures, Pamphlets, Menu Design',
+              page: 'design' as const,
             },
             {
               icon: '📱',
-              title: 'Web Development',
-              description: 'Responsive, fast, and beautiful websites',
+              title: 'Social Media Growth',
+              description: 'Video Content Systems for Instagram, YouTube, Facebook',
+              page: 'socialmedia' as const,
             },
             {
-              icon: '📈',
-              title: 'Digital Marketing',
-              description: 'Strategies that drive growth and engagement',
-            },
-            {
-              icon: '🏆',
-              title: 'SEO Optimization',
-              description: 'Boost your visibility in search results',
-            },
-            {
-              icon: '💬',
-              title: 'Social Media',
-              description: 'Build meaningful connections with your audience',
+              icon: '💻',
+              title: 'Web & App Development',
+              description: 'Custom websites and applications',
+              page: 'webdev' as const,
             },
             {
               icon: '📊',
-              title: 'Analytics',
-              description: 'Data-driven insights for better decisions',
+              title: 'Monthly Management',
+              description: 'Social Media Account Management & Growth Operations',
+              page: 'management' as const,
+            },
+            {
+              icon: '⭐',
+              title: 'Influencer Growth',
+              description: 'Creator Enablement & Audience Scaling',
+              page: 'influencer' as const,
+            },
+            {
+              icon: '🚀',
+              title: 'Small Business',
+              description: 'From Local Operations to Scalable Brands',
+              page: 'smallbusiness' as const,
             },
           ].map((service, index) => (
-            <div
+            <button
               key={index}
               className={`service-card ${visibleSections['services'] ? 'animate-in' : ''}`}
               style={{
                 animationDelay: `${index * 0.1}s`,
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                padding: 0,
               }}
+              onClick={() => setCurrentPage(service.page)}
             >
               <div className="service-icon">{service.icon}</div>
               <h3>{service.title}</h3>
               <p>{service.description}</p>
               <div className="service-overlay"></div>
-            </div>
+            </button>
           ))}
         </div>
       </section>
