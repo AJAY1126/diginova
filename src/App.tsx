@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import type { FormEvent } from 'react'
+import emailjs from '@emailjs/browser'
 import './App.css'
 import './styles/index.css'
 import {
@@ -10,6 +11,9 @@ import {
   InfluencerGrowth,
   SmallBusinessEnablement,
 } from './pages'
+
+// Initialize EmailJS (replace with your public key from EmailJS)
+emailjs.init('qF1dQuOWKRTjlXtHd')
 
 interface MousePosition {
   x: number
@@ -78,12 +82,17 @@ function App() {
   }, [])
 
   // Render service pages
-  if (currentPage === 'design') return <DesignSystems />
-  if (currentPage === 'socialmedia') return <SocialMediaGrowth />
-  if (currentPage === 'webdev') return <WebsiteAppDevelopment />
-  if (currentPage === 'management') return <SocialMediaManagement />
-  if (currentPage === 'influencer') return <InfluencerGrowth />
-  if (currentPage === 'smallbusiness') return <SmallBusinessEnablement />
+  const goHome = () => {
+    setCurrentPage('home')
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  if (currentPage === 'design') return <DesignSystems onBack={goHome} />
+  if (currentPage === 'socialmedia') return <SocialMediaGrowth onBack={goHome} />
+  if (currentPage === 'webdev') return <WebsiteAppDevelopment onBack={goHome} />
+  if (currentPage === 'management') return <SocialMediaManagement onBack={goHome} />
+  if (currentPage === 'influencer') return <InfluencerGrowth onBack={goHome} />
+  if (currentPage === 'smallbusiness') return <SmallBusinessEnablement onBack={goHome} />
 
   // Home page
   return (
@@ -109,11 +118,22 @@ function App() {
         <div className="nav-container">
           <button
             className="logo-section"
-            onClick={() => setCurrentPage('home')}
+            onClick={() => {
+              setCurrentPage('home')
+              window.scrollTo({ top: 0, behavior: 'smooth' })
+            }}
             style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
           >
-            <div className="logo-icon">✦</div>
+            {/* <div className="logo-wrapper"> */}
+            <img
+              src="/images/diginova logo.png"
+              alt="DIGINOVA Logo"
+              className="logo-image"
+              style={{ height: '50px', width: '200px' }}
+            />
+            {/* </div> */}
             <span className="company-name">DIGINOVA</span>
+            <span className="company-tagline">Digital Marketing</span>
           </button>
 
           {/* Hamburger Menu Button */}
@@ -137,7 +157,9 @@ function App() {
                 }}
                 style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, color: 'inherit', font: 'inherit' }}
               >
-                Home
+                <a href="#" className={activeNav === 'home' ? 'active' : ''} onClick={() => handleNavClick('home')}>
+                  Home
+                </a>
               </button>
             </li>
             <li>
@@ -149,7 +171,9 @@ function App() {
                 }}
                 style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, color: 'inherit', font: 'inherit' }}
               >
-                Services
+                <a href="#services" className={activeNav === 'services' ? 'active' : ''} onClick={() => handleNavClick('services')}>
+                  Services
+                </a>
               </button>
             </li>
             <li>
@@ -187,14 +211,10 @@ function App() {
               transform: `translateY(${Math.min(100, scrollProgress * 500)}px)`,
             }}
           >
-            <h1 className="hero-title">Transform Your Digital Presence</h1>
+            <h1 className="hero-title">Digital Excellence at Scale</h1>
             <p className="hero-subtitle">
               Unlock unprecedented growth with cutting-edge digital marketing strategies
             </p>
-            <div className="hero-buttons">
-              <button className="btn btn-primary">Start Your Journey</button>
-              <button className="btn btn-secondary">Learn More</button>
-            </div>
           </div>
 
           <div
@@ -204,37 +224,37 @@ function App() {
             }}
           >
             <div className="floating-card card-1">
-              <div className="card-content">📊</div>
+              <img src="/images/insta.png" alt="Instagram" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
             <div className="floating-card card-2">
-              <div className="card-content">🚀</div>
+              <img src="/images/fb.png" alt="Facebook" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
             <div className="floating-card card-3">
-              <div className="card-content">💡</div>
+              <img src="/images/linkedin.png" alt="LinkedIn" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
           </div>
         </div>
       </section>
 
-      <ContactSection />
+      {/* <ContactSection /> */}
 
       {/* Stats Section */}
       <section className="stats">
         <div className="glass-container">
           <div className="stat-item">
-            <h3>500+</h3>
+            <h3>250+</h3>
             <p>Projects Completed</p>
           </div>
           <div className="stat-item">
-            <h3>98%</h3>
+            <h3>95%</h3>
             <p>Client Satisfaction</p>
           </div>
           <div className="stat-item">
-            <h3>150+</h3>
+            <h3>120+</h3>
             <p>Happy Clients</p>
           </div>
           <div className="stat-item">
-            <h3>10+</h3>
+            <h3>8+</h3>
             <p>Years Experience</p>
           </div>
         </div>
@@ -297,7 +317,10 @@ function App() {
                 cursor: 'pointer',
                 padding: 0,
               }}
-              onClick={() => setCurrentPage(service.page)}
+              onClick={() => {
+                setCurrentPage(service.page)
+                window.scrollTo({ top: 0, behavior: 'smooth' })
+              }}
             >
               <div className="service-icon">{service.icon}</div>
               <h3>{service.title}</h3>
@@ -342,6 +365,8 @@ function App() {
         </div>
       </section>
 
+      <ContactSection />
+
       {/* Footer */}
       <footer className="footer">
         <div className="footer-content">
@@ -352,15 +377,15 @@ function App() {
           <div className="footer-section">
             <h4>Quick Links</h4>
             <ul>
-              <li><a href="#">About</a></li>
-              <li><a href="#">Services</a></li>
-              <li><a href="#">Portfolio</a></li>
+              <li><a href="#">Homw</a></li>
+              <li><a href="#services">Services</a></li>
+              <li><a href="#portfolio">Portfolio</a></li>
             </ul>
           </div>
           <div className="footer-section">
             <h4>Contact</h4>
             <p>hello@diginova.com</p>
-            <p>+1 (555) 123-4567</p>
+            <p>+91-7395987551</p>
           </div>
         </div>
         <div className="footer-bottom">
@@ -376,74 +401,161 @@ export default App
 // Contact section component
 function ContactSection() {
   const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState('')
+  const [brand, setBrand] = useState('')
   const [message, setMessage] = useState('')
   const [submitted, setSubmitted] = useState(false)
+  const [showSnackbar, setShowSnackbar] = useState(false)
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
+    setError('')
+
     // Basic client-side validation
-    if (!name || !email || !message) {
-      alert('Please fill all fields before submitting.')
+    if (!name || !phone || !brand || !message) {
+      setError('Please fill all fields before submitting.')
       return
     }
-    setSubmitted(true)
-    setTimeout(() => {
-      setName('')
-      setEmail('')
-      setMessage('')
-      setSubmitted(false)
-      alert('Thanks! Your message has been received.')
-    }, 800)
+
+    setLoading(true)
+
+    try {
+      // Send email using EmailJS
+      await emailjs.send(
+        'service_bst64gb', // Replace with your EmailJS Service ID
+        'template_ghw0lf5', // Replace with your EmailJS Template ID
+        {
+          from_name: name,
+          from_phone: phone,
+          from_brand: brand,
+          from_email: 'contact@diginova.com', // This will appear as sender
+          message: message,
+          to_email: 'hello@diginova.com', // Your email address where you want to receive messages
+        }
+      )
+
+      setSubmitted(true)
+      setShowSnackbar(true)
+
+      // Auto-hide snackbar after 5 seconds
+      setTimeout(() => {
+        setShowSnackbar(false)
+      }, 5000)
+
+      // Clear form after 1 second
+      setTimeout(() => {
+        setName('')
+        setPhone('')
+        setBrand('')
+        setMessage('')
+        setSubmitted(false)
+        setLoading(false)
+      }, 1000)
+    } catch (err) {
+      setError('Failed to send message. Please try again.')
+      setLoading(false)
+      console.error('EmailJS error:', err)
+    }
   }
 
   return (
-    <section id="contact" className="contact-section" data-scroll-animate>
-      <div className="contact-container">
-        <div className="contact-left">
-          <div className="contact-card">
-            <h2>Let's create something beautiful</h2>
-            <p className="muted">Reach out to us and we'll get back within 24 hours.</p>
-
-            <div className="contact-meta">
-              <div>
-                <strong>Email</strong>
-                <p>hello@diginova.com</p>
-              </div>
-              <div>
-                <strong>Phone</strong>
-                <p>+1 (555) 123-4567</p>
-              </div>
-            </div>
-
-            <div className="social-icons" aria-hidden>
-              {/* Inline SVG icons */}
-              <a href="#" className="social" aria-label="Twitter">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53A4.48 4.48 0 0 0 22.43 1s-1 .6-1.46.76A4.48 4.48 0 0 0 16.5 0c-2.5 0-4.5 2.2-4.5 4.9 0 .38.04.75.12 1.1C8 6 4.3 4 1.9 1.2c-.4.7-.6 1.5-.6 2.4 0 1.7.8 3.2 2 4.1A4.4 4.4 0 0 1 .8 7v.1c0 2.3 1.6 4.2 3.8 4.6-.3.08-.6.12-.9.12-.2 0-.4 0-.6-.06.4 1.3 1.6 2.3 3 2.3A9 9 0 0 1 0 18.6a12.7 12.7 0 0 0 6.9 2c8.3 0 12.9-7.6 12.9-14.2v-.65A9.1 9.1 0 0 0 23 3z" /></svg>
-              </a>
-              <a href="#" className="social" aria-label="LinkedIn">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.49 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.5 8h3.98V24H.5V8zM8.5 8h3.82v2.17h.05c.53-1 1.83-2.17 3.76-2.17 4.02 0 4.76 2.65 4.76 6.1V24h-3.98v-7.4c0-1.77-.03-4.05-2.47-4.05-2.48 0-2.86 1.94-2.86 3.94V24H8.5V8z" /></svg>
-              </a>
-              <a href="#" className="social" aria-label="Instagram">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 5.8a4.2 4.2 0 1 0 0 8.4 4.2 4.2 0 0 0 0-8.4zM19.5 6.1a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4z" /></svg>
-              </a>
-              <a href="#" className="social" aria-label="GitHub">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5A12 12 0 0 0 0 12.5c0 5.3 3.4 9.8 8.2 11.4.6.1.8-.3.8-.6v-2.1c-3.3.7-4-1.6-4-1.6-.5-1.3-1.2-1.6-1.2-1.6-1-.7.1-.7.1-.7 1.1.1 1.7 1.1 1.7 1.1 1 .1 1.6.7 1.8 1 .6 1.1 1.6.8 2 .6.1-.7.4-1.2.6-1.5-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.6.1-3.2 0 0 1-.3 3.4 1.2a11.6 11.6 0 0 1 6.2 0C18 6.9 19 7.2 19 7.2c.6 1.6.2 2.9.1 3.2.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.3.7.9.7 1.9v2.9c0 .3.2.7.8.6A12 12 0 0 0 12 .5z" /></svg>
-              </a>
-            </div>
-          </div>
+    <>
+      {/* Snackbar Notification */}
+      {showSnackbar && (
+        <div className={`snackbar ${showSnackbar ? 'show' : 'hide'}`}>
+          <span className="snackbar-icon">✓</span>
+          <span className="snackbar-text">Email sent successfully! We'll get back to you soon.</span>
+          <button
+            className="snackbar-close"
+            onClick={() => setShowSnackbar(false)}
+            aria-label="Close notification"
+          >
+            ✕
+          </button>
         </div>
+      )}
 
-        <form className="contact-form" onSubmit={handleSubmit}>
-          <h3>Send us a message</h3>
-          <div className="form-grid">
-            <input type="text" placeholder="Your name" value={name} onChange={(e) => setName(e.target.value)} />
-            <input type="email" placeholder="Email address" value={email} onChange={(e) => setEmail(e.target.value)} />
-            <textarea placeholder="Tell us about your project" value={message} onChange={(e) => setMessage(e.target.value)} />
+      <section id="contact" className="contact-section" data-scroll-animate>
+        <div className="contact-container">
+          <div className="contact-left">
+            <div className="contact-card">
+              <h2>Let's create something beautiful</h2>
+              <p className="muted">Reach out to us and we'll get back within 24 hours.</p>
+
+              <div className="contact-meta">
+                <div>
+                  <strong>📞 Phone</strong>
+                  <p>+91-7395987551</p>
+                  <p style={{ fontSize: '0.9rem', marginTop: '4px' }}><strong>DIGINOVA</strong></p>
+                </div>
+                <div>
+                  <strong>📧 Email</strong>
+                  <p>hello@diginova.com</p>
+                </div>
+              </div>
+
+              <div className="social-icons" aria-hidden>
+                {/* Inline SVG icons */}
+                <a href="#" className="social" aria-label="Twitter">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53A4.48 4.48 0 0 0 22.43 1s-1 .6-1.46.76A4.48 4.48 0 0 0 16.5 0c-2.5 0-4.5 2.2-4.5 4.9 0 .38.04.75.12 1.1C8 6 4.3 4 1.9 1.2c-.4.7-.6 1.5-.6 2.4 0 1.7.8 3.2 2 4.1A4.4 4.4 0 0 1 .8 7v.1c0 2.3 1.6 4.2 3.8 4.6-.3.08-.6.12-.9.12-.2 0-.4 0-.6-.06.4 1.3 1.6 2.3 3 2.3A9 9 0 0 1 0 18.6a12.7 12.7 0 0 0 6.9 2c8.3 0 12.9-7.6 12.9-14.2v-.65A9.1 9.1 0 0 0 23 3z" /></svg>
+                </a>
+                <a href="#" className="social" aria-label="LinkedIn">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.49 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.5 8h3.98V24H.5V8zM8.5 8h3.82v2.17h.05c.53-1 1.83-2.17 3.76-2.17 4.02 0 4.76 2.65 4.76 6.1V24h-3.98v-7.4c0-1.77-.03-4.05-2.47-4.05-2.48 0-2.86 1.94-2.86 3.94V24H8.5V8z" /></svg>
+                </a>
+                <a href="#" className="social" aria-label="Instagram">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 5.8a4.2 4.2 0 1 0 0 8.4 4.2 4.2 0 0 0 0-8.4zM19.5 6.1a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4z" /></svg>
+                </a>
+                <a href="#" className="social" aria-label="GitHub">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5A12 12 0 0 0 0 12.5c0 5.3 3.4 9.8 8.2 11.4.6.1.8-.3.8-.6v-2.1c-3.3.7-4-1.6-4-1.6-.5-1.3-1.2-1.6-1.2-1.6-1-.7.1-.7.1-.7 1.1.1 1.7 1.1 1.7 1.1 1 .1 1.6.7 1.8 1 .6 1.1 1.6.8 2 .6.1-.7.4-1.2.6-1.5-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.6.1-3.2 0 0 1-.3 3.4 1.2a11.6 11.6 0 0 1 6.2 0C18 6.9 19 7.2 19 7.2c.6 1.6.2 2.9.1 3.2.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.3.7.9.7 1.9v2.9c0 .3.2.7.8.6A12 12 0 0 0 12 .5z" /></svg>
+                </a>
+              </div>
+            </div>
           </div>
-          <button className="btn btn-primary" type="submit" disabled={submitted}>{submitted ? 'Sending...' : 'Send Message'}</button>
-        </form>
-      </div>
-    </section>
+
+          <form className="contact-form" onSubmit={handleSubmit}>
+            <h3>Send us a message</h3>
+            {error && <div style={{ color: '#ff006e', fontSize: '0.9rem', marginBottom: '1rem' }}>{error}</div>}
+            <div className="form-grid">
+              <input
+                type="text"
+                placeholder="Your name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                disabled={loading}
+              />
+              <input
+                type="tel"
+                placeholder="Phone Number"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                disabled={loading}
+              />
+              <input
+                type="text"
+                placeholder="Brand Name"
+                value={brand}
+                onChange={(e) => setBrand(e.target.value)}
+                disabled={loading}
+              />
+              <textarea
+                placeholder="Tell us about your project"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                disabled={loading}
+              />
+            </div>
+            <button
+              className="btn btn-primary"
+              type="submit"
+              disabled={loading || submitted}
+            >
+              {loading ? 'Sending...' : submitted ? '✓ Sent' : 'Send Message'}
+            </button>
+          </form>
+        </div>
+      </section>
+    </>
   )
 }

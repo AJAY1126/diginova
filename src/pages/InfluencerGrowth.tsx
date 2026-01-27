@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import '../styles/ServicePages.css'
 
-export function InfluencerGrowth() {
+export function InfluencerGrowth({ onBack }: { onBack: () => void }) {
     const [activeTab, setActiveTab] = useState<'overview' | 'approach' | 'expectations' | 'pricing'>('overview')
 
     const packages = [
@@ -37,6 +37,41 @@ export function InfluencerGrowth() {
 
     return (
         <div className="service-page">
+            {/* Back Button */}
+            <button
+                onClick={onBack}
+                className="back-button"
+                aria-label="Go back to home"
+                style={{
+                    position: 'fixed',
+                    top: '80px',
+                    left: '2rem',
+                    zIndex: 100,
+                    background: 'rgba(0, 212, 255, 0.1)',
+                    border: '1px solid rgba(0, 212, 255, 0.3)',
+                    color: '#00d4ff',
+                    width: '45px',
+                    height: '45px',
+                    borderRadius: '50%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    cursor: 'pointer',
+                    fontSize: '1.5rem',
+                    transition: 'all 0.3s ease',
+                }}
+                onMouseEnter={(e) => {
+                    e.currentTarget.style.background = 'rgba(0, 212, 255, 0.2)'
+                    e.currentTarget.style.boxShadow = '0 0 20px rgba(0, 212, 255, 0.4)'
+                }}
+                onMouseLeave={(e) => {
+                    e.currentTarget.style.background = 'rgba(0, 212, 255, 0.1)'
+                    e.currentTarget.style.boxShadow = 'none'
+                }}
+            >
+                ←
+            </button>
+
             <section className="service-hero">
                 <div className="service-hero-content">
                     <h1>Influencer Growth & Personal Brand Acceleration</h1>
