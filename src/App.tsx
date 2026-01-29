@@ -129,12 +129,13 @@ function App() {
               src="/images/diginova logo.png"
               alt="DIGINOVA Logo"
               className="logo-image"
-              style={{ height: '50px', width: '200px' }}
+              style={{ height: '50px', width: 'auto', maxWidth: '120px', objectFit: 'contain' }}
             />
             {/* </div> */}
             <span className="company-name">DIGINOVA</span>
             <span className="company-tagline">Digital Marketing</span>
           </button>
+
 
           {/* Hamburger Menu Button */}
           <button
@@ -377,7 +378,7 @@ function App() {
           <div className="footer-section">
             <h4>Quick Links</h4>
             <ul>
-              <li><a href="#">Homw</a></li>
+              <li><a href="#">Home</a></li>
               <li><a href="#services">Services</a></li>
               <li><a href="#portfolio">Portfolio</a></li>
             </ul>

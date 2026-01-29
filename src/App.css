@@ -100,7 +100,9 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 3rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+  position: relative;
 }
 
 .logo-section {
@@ -114,7 +116,12 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  flex-shrink: 0;
+  min-width: fit-content;
 }
+
+
+
 
 .logo-icon {
   font-size: 1.5rem;
@@ -191,7 +198,12 @@ body {
   background: none;
   border: none;
   cursor: pointer;
-  z-index: 1001;
+  z-index: 1100;
+  padding: 0.5rem;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .hamburger span {
@@ -226,29 +238,36 @@ body {
 /* ==================== RESPONSIVE NAVBAR ==================== */
 @media (max-width: 768px) {
   .navbar {
-    padding: 1rem;
+    padding: 0.8rem 1rem;
+    min-height: 65px;
   }
 
   .nav-container {
-    gap: 1rem;
+    gap: 0.5rem;
+    flex-wrap: nowrap;
+    position: relative;
   }
 
   .logo-section {
-    font-size: 1.1rem;
-    gap: 0.5rem;
+    font-size: 1rem;
+    gap: 0.4rem;
   }
 
   .logo-icon {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
   }
 
   .hamburger {
     display: flex;
+    position: absolute;
+    right: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
   }
 
   .nav-links {
     position: fixed;
-    top: 60px;
+    top: 65px;
     left: 0;
     right: 0;
     background: linear-gradient(180deg, rgba(5, 10, 26, 0.98), rgba(10, 14, 39, 0.98));
@@ -261,10 +280,11 @@ body {
     transition: max-height 0.3s ease;
     list-style: none;
     border-bottom: 1px solid var(--glass-border);
+    z-index: 1099;
   }
 
   .nav-links.active {
-    max-height: 400px;
+    max-height: 500px;
   }
 
   .nav-links li {
