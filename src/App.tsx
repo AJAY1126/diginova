@@ -25,7 +25,9 @@ function App() {
   const [scrollProgress, setScrollProgress] = useState(0)
   const [activeNav, setActiveNav] = useState('home')
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [visibleSections, setVisibleSections] = useState<Record<string, boolean>>({})
+  const [visibleSections, setVisibleSections] = useState<Record<string, boolean>>({});
+  const [getStartedModal, setGetStartedModal] = useState(false)
+  const [logoExpanded, setLogoExpanded] = useState(false)
   const [currentPage, setCurrentPage] = useState<'home' | 'design' | 'socialmedia' | 'webdev' | 'management' | 'influencer' | 'smallbusiness'>('home')
   const cursorRef = useRef<HTMLDivElement>(null)
 
@@ -120,22 +122,27 @@ function App() {
             className="logo-section"
             onClick={() => {
               setCurrentPage('home')
+              setLogoExpanded(false)
               window.scrollTo({ top: 0, behavior: 'smooth' })
             }}
             style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
           >
-            {/* <div className="logo-wrapper"> */}
-            <img
-              src="/images/diginova logo.png"
-              alt="DIGINOVA Logo"
-              className="logo-image"
-              style={{ height: '50px', width: 'auto', maxWidth: '120px', objectFit: 'contain' }}
-            />
-            {/* </div> */}
-            <span className="company-name">DIGINOVA</span>
-            <span className="company-tagline">Digital Marketing</span>
+            <div className={`logo-wrapper ${logoExpanded ? 'expanded' : ''}`} onClick={(e) => {
+              e.stopPropagation()
+              setLogoExpanded(!logoExpanded)
+            }}>
+              <img
+                src="/images/diginova logo.png"
+                alt="DIGINOVA Logo"
+                className="logo-image"
+                style={{ height: '50px', width: 'auto', maxWidth: '120px', objectFit: 'contain' }}
+              />
+              <div className="logo-text-wrapper">
+                <span className="company-name">DIGINOVA</span>
+                <span className="company-tagline">Digital Marketing</span>
+              </div>
+            </div>
           </button>
-
 
           {/* Hamburger Menu Button */}
           <button
@@ -149,7 +156,7 @@ function App() {
 
           <ul className={`nav-links ${mobileMenuOpen ? 'active' : ''}`}>
             <li>
-              <button
+              {/* <button
                 className={`nav-link ${activeNav === 'home' ? 'active' : ''}`}
                 onClick={() => {
                   setCurrentPage('home')
@@ -157,42 +164,42 @@ function App() {
                   setMobileMenuOpen(false)
                 }}
                 style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, color: 'inherit', font: 'inherit' }}
-              >
-                <a href="#" className={activeNav === 'home' ? 'active' : ''} onClick={() => handleNavClick('home')}>
-                  Home
-                </a>
-              </button>
+              > */}
+              <a href="#" className={activeNav === 'home' ? 'active' : ''} onClick={() => handleNavClick('home')}>
+                Home
+              </a>
+              {/* </button> */}
             </li>
             <li>
-              <button
+              {/* <button
                 className={`nav-link ${activeNav === 'services' ? 'active' : ''}`}
                 onClick={() => {
                   setActiveNav('services')
                   setMobileMenuOpen(false)
                 }}
                 style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, color: 'inherit', font: 'inherit' }}
-              >
-                <a href="#services" className={activeNav === 'services' ? 'active' : ''} onClick={() => handleNavClick('services')}>
-                  Services
-                </a>
-              </button>
+              > */}
+              <a href="#services" className={activeNav === 'services' ? 'active' : ''} onClick={() => handleNavClick('services')}>
+                Services
+              </a>
+              {/* </button> */}
             </li>
-            <li>
+            {/* <li>
               <a href="#portfolio" className={activeNav === 'portfolio' ? 'active' : ''} onClick={() => handleNavClick('portfolio')}>
                 Portfolio
               </a>
-            </li>
+            </li> */}
             <li>
               <a href="#contact" className={activeNav === 'contact' ? 'active' : ''} onClick={() => handleNavClick('contact')}>
                 Contact
               </a>
             </li>
             <li className="mobile-cta">
-              <button className="cta-button">Get Started</button>
+              <button className="cta-button" onClick={() => setGetStartedModal(true)}>Get Started</button>
             </li>
           </ul>
 
-          <button className="cta-button desktop-cta">Get Started</button>
+          <button className="cta-button desktop-cta" onClick={() => setGetStartedModal(true)}>Get Started</button>
         </div>
       </nav>
 
@@ -205,6 +212,12 @@ function App() {
         </div>
 
         <div className="hero-content">
+          {/* Scroll Down Indicator */}
+          {/* <div className="scroll-down-indicator">
+            <span className="arrow"></span>
+            <span className="arrow"></span>
+            <span className="arrow"></span>
+          </div> */}
           <div
             className="hero-text fadeInUp"
             style={{
@@ -216,6 +229,14 @@ function App() {
             <p className="hero-subtitle">
               Unlock unprecedented growth with cutting-edge digital marketing strategies
             </p>
+            {/* <div className="hero-buttons">
+              <button className="btn btn-primary btn-large" onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}>
+                Explore Services
+              </button>
+              <button className="btn btn-secondary btn-large" onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}>
+                Contact Us
+              </button>
+            </div> */}
           </div>
 
           <div
@@ -233,6 +254,12 @@ function App() {
             <div className="floating-card card-3">
               <img src="/images/linkedin.png" alt="LinkedIn" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
+            <div className="floating-card card-4">
+              <img src="/images/youtube.png" alt="YouTube" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            </div>
+            <div className="floating-card card-5">
+              <img src="/images/googleads.png" alt="GoogleAds" style={{ width: '90%', height: '90%', objectFit: 'cover' }} />
+            </div>
           </div>
         </div>
       </section>
@@ -240,7 +267,7 @@ function App() {
       {/* <ContactSection /> */}
 
       {/* Stats Section */}
-      <section className="stats">
+      {/* <section className="stats">
         <div className="glass-container">
           <div className="stat-item">
             <h3>250+</h3>
@@ -259,7 +286,7 @@ function App() {
             <p>Years Experience</p>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Services Section */}
       <section id="services" className="services" data-scroll-animate>
@@ -269,7 +296,7 @@ function App() {
         </div>
 
         {/* Services Grid */}
-        <div className="services-grid">
+        <div className="services-grid animate-section">
           {[
             {
               icon: '🎨',
@@ -308,32 +335,33 @@ function App() {
               page: 'smallbusiness' as const,
             },
           ].map((service, index) => (
-            <button
+            <div
               key={index}
               className={`service-card ${visibleSections['services'] ? 'animate-in' : ''}`}
               style={{
                 animationDelay: `${index * 0.1}s`,
-                background: 'none',
-                border: 'none',
-                cursor: 'pointer',
-                padding: 0,
-              }}
-              onClick={() => {
-                setCurrentPage(service.page)
-                window.scrollTo({ top: 0, behavior: 'smooth' })
               }}
             >
               <div className="service-icon">{service.icon}</div>
               <h3>{service.title}</h3>
               <p>{service.description}</p>
+              <button
+                className="know-more-btn"
+                onClick={() => {
+                  setCurrentPage(service.page)
+                  window.scrollTo({ top: 0, behavior: 'smooth' })
+                }}
+              >
+                Know More
+              </button>
               <div className="service-overlay"></div>
-            </button>
+            </div>
           ))}
         </div>
       </section>
 
       {/* Portfolio Section */}
-      <section id="portfolio" className="portfolio">
+      {/* <section id="portfolio" className="portfolio">
         <div className="section-header">
           <h2>Our Work</h2>
           <p>Showcasing our best creations and results</p>
@@ -355,18 +383,71 @@ function App() {
             </div>
           ))}
         </div>
-      </section>
+      </section> */}
 
       {/* CTA Section */}
       <section className="cta-section">
         <div className="cta-content">
           <h2>Ready to Transform Your Business?</h2>
           <p>Let's create something amazing together</p>
-          <button className="btn btn-primary btn-large">Get Started Today</button>
+          <button className="btn btn-primary btn-large" onClick={() => setGetStartedModal(true)}>Get Started Today</button>
         </div>
       </section>
 
       <ContactSection />
+
+      {/* Get Started Modal */}
+      {getStartedModal && (
+        <div className="modal-overlay" onClick={() => setGetStartedModal(false)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <button className="modal-close" onClick={() => setGetStartedModal(false)}>✕</button>
+            <div className="modal-header">
+              <h2>Let's Start Your Digital Journey</h2>
+              <p>Choose a service or explore all our solutions</p>
+            </div>
+            <div className="modal-animated-bg">
+              <div className="modal-orb orb-1"></div>
+              <div className="modal-orb orb-2"></div>
+              <div className="modal-orb orb-3"></div>
+            </div>
+            <div className="modal-body">
+              <div className="quick-services">
+                {[
+                  { icon: '🎨', label: 'Design', page: 'design' as const },
+                  { icon: '📱', label: 'Social Media', page: 'socialmedia' as const },
+                  { icon: '💻', label: 'Web Dev', page: 'webdev' as const },
+                  { icon: '📊', label: 'Management', page: 'management' as const },
+                ].map((service, idx) => (
+                  <button
+                    key={idx}
+                    className="quick-service-btn"
+                    onClick={() => {
+                      setCurrentPage(service.page)
+                      setGetStartedModal(false)
+                      window.scrollTo({ top: 0, behavior: 'smooth' })
+                    }}
+                  >
+                    <span className="service-icon-large">{service.icon}</span>
+                    <span>{service.label}</span>
+                  </button>
+                ))}
+              </div>
+              <div className="modal-divider">or</div>
+              <button
+                className="btn btn-primary"
+                onClick={() => {
+                  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
+                  setGetStartedModal(false)
+                }}
+              >
+                Schedule a Consultation
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* <ContactSection /> */}
 
       {/* Footer */}
       <footer className="footer">
@@ -380,13 +461,13 @@ function App() {
             <ul>
               <li><a href="#">Home</a></li>
               <li><a href="#services">Services</a></li>
-              <li><a href="#portfolio">Portfolio</a></li>
+              {/* <li><a href="#portfolio">Portfolio</a></li> */}
             </ul>
           </div>
           <div className="footer-section">
             <h4>Contact</h4>
             <p>hello@diginova.com</p>
-            <p>+91-7395987551</p>
+            <p>+91-73959 87551</p>
           </div>
         </div>
         <div className="footer-bottom">
@@ -488,7 +569,7 @@ function ContactSection() {
               <div className="contact-meta">
                 <div>
                   <strong>📞 Phone</strong>
-                  <p>+91-7395987551</p>
+                  <p>+91-73959 87551</p>
                   <p style={{ fontSize: '0.9rem', marginTop: '4px' }}><strong>DIGINOVA</strong></p>
                 </div>
                 <div>
