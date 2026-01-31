@@ -18,8 +18,10 @@
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+  background-attachment: fixed;
   color: var(--light);
   overflow-x: hidden;
+  min-height: 100vh;
 }
 
 .app {
@@ -87,19 +89,20 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  width: 100%;
+  width: 100vw;
   backdrop-filter: blur(10px);
-  background: var(--glass);
+  background: rgba(5, 10, 26, 0.85);
   border-bottom: 1px solid var(--glass-border);
   z-index: 1000;
   padding: 1rem 2rem;
-  margin: 0; /* Ensure no margin */
+  margin: 0;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
 }
 
-/* Additional styles for mobile view */
 @media (max-width: 768px) {
   .navbar {
-    padding: 0.5rem 1rem;
+    padding: 0.75rem 1rem;
+    width: 100%;
   }
 }
 
@@ -550,7 +553,22 @@ body {
   justify-content: center;
   padding: 6rem 2rem 2rem;
   overflow: hidden;
-  margin-top: 100px;
+  margin-top: 60px;
+  background: transparent;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    margin-top: 55px;
+    padding: 4rem 1rem 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    margin-top: 50px;
+    padding: 3rem 1rem 1rem;
+  }
 }
 
 .hero-background {
