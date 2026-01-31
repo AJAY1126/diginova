@@ -87,11 +87,20 @@ body {
   top: 0;
   left: 0;
   right: 0;
+  width: 100%;
   backdrop-filter: blur(10px);
   background: var(--glass);
   border-bottom: 1px solid var(--glass-border);
   z-index: 1000;
   padding: 1rem 2rem;
+  margin: 0; /* Ensure no margin */
+}
+
+/* Additional styles for mobile view */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0.5rem 1rem;
+  }
 }
 
 .nav-container {
