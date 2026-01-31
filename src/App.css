@@ -543,7 +543,7 @@ body {
 
 /* ==================== HERO SECTION ==================== */
 .hero {
-  /* position: relative; */
+  position: relative;
   min-height: 100vh;
   display: flex;
   align-items: center;
