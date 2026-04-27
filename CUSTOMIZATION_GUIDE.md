@@ -146,7 +146,7 @@
 // BEFORE
 <div className="footer-section">
   <h4>Contact</h4>
-  <p>hello@diginova.com</p>
+  <p>diginova.scalex@gmail.com</p>
   <p>+1 (555) 123-4567</p>
 </div>
 

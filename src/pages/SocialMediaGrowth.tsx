@@ -62,9 +62,9 @@ export function SocialMediaGrowth({ onBack }: { onBack: () => void }) {
                     <button className={`tab-button ${activeTab === 'process' ? 'active' : ''}`} onClick={() => setActiveTab('process')}>
                         How We Work
                     </button>
-                    <button className={`tab-button ${activeTab === 'pricing' ? 'active' : ''}`} onClick={() => setActiveTab('pricing')}>
+                    {/* <button className={`tab-button ${activeTab === 'pricing' ? 'active' : ''}`} onClick={() => setActiveTab('pricing')}>
                         Pricing
-                    </button>
+                    </button> */}
                 </div>
             </section>
 

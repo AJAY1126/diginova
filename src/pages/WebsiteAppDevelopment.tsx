@@ -1,5 +1,8 @@
 import { useState } from 'react'
 import '../styles/ServicePages.css'
+import Price from './Price'
+import Websitedesignpricedetails from './Websitedesignpricedetails'
+import ApplicationPrice from './Applicationprice'
 
 export function WebsiteAppDevelopment({ onBack }: { onBack: () => void }) {
     const [activeTab, setActiveTab] = useState<'overview' | 'website' | 'app' | 'process' | 'pricing'>('overview')
@@ -53,19 +56,38 @@ export function WebsiteAppDevelopment({ onBack }: { onBack: () => void }) {
 
             <section className="service-tabs">
                 <div className="tab-container">
-                    <button className={`tab-button ${activeTab === 'overview' ? 'active' : ''}`} onClick={() => setActiveTab('overview')}>
+                    <button
+                        className={`tab-button ${activeTab === 'overview' ? 'active' : ''}`}
+                        onClick={() => setActiveTab('overview')}
+                    >
                         What We Do
                     </button>
-                    <button className={`tab-button ${activeTab === 'website' ? 'active' : ''}`} onClick={() => setActiveTab('website')}>
+
+                    <button
+                        className={`tab-button ${activeTab === 'website' ? 'active' : ''}`}
+                        onClick={() => setActiveTab('website')}
+                    >
                         Website Design
                     </button>
-                    <button className={`tab-button ${activeTab === 'app' ? 'active' : ''}`} onClick={() => setActiveTab('app')}>
+
+                    <button
+                        className={`tab-button ${activeTab === 'app' ? 'active' : ''}`}
+                        onClick={() => setActiveTab('app')}
+                    >
                         Application Design
                     </button>
-                    <button className={`tab-button ${activeTab === 'process' ? 'active' : ''}`} onClick={() => setActiveTab('process')}>
+
+                    <button
+                        className={`tab-button ${activeTab === 'process' ? 'active' : ''}`}
+                        onClick={() => setActiveTab('process')}
+                    >
                         Process
                     </button>
-                    <button className={`tab-button ${activeTab === 'pricing' ? 'active' : ''}`} onClick={() => setActiveTab('pricing')}>
+
+                    <button
+                        className={`tab-button ${activeTab === 'pricing' ? 'active' : ''}`}
+                        onClick={() => setActiveTab('pricing')}
+                    >
                         Pricing
                     </button>
                 </div>
@@ -115,7 +137,9 @@ export function WebsiteAppDevelopment({ onBack }: { onBack: () => void }) {
                         </div>
 
                         <div className="philosophy-box">
-                            <p><strong>Our Philosophy:</strong> A website or application is not an expense. It is a strategic asset that compounds over time.</p>
+                            <p>
+                                <strong>Our Philosophy:</strong> A website or application is not an expense. It is a strategic asset that compounds over time.
+                            </p>
                         </div>
                     </div>
                 </section>
@@ -125,7 +149,9 @@ export function WebsiteAppDevelopment({ onBack }: { onBack: () => void }) {
                 <section className="service-content">
                     <div className="content-container">
                         <h2>Website Design & Development</h2>
-                        <p>We design and develop websites that function as primary business interfaces—not online brochures.</p>
+                        <p>
+                            We design and develop websites that function as primary business interfaces—not online brochures.
+                        </p>
 
                         <div className="focus-areas">
                             <div className="focus-card">
@@ -137,7 +163,9 @@ export function WebsiteAppDevelopment({ onBack }: { onBack: () => void }) {
                                     <li>Information clarity</li>
                                     <li>Conversion and action</li>
                                 </ul>
-                                <p>Content structure, navigation, and page hierarchy are designed to support these goals.</p>
+                                <p>
+                                    Content structure, navigation, and page hierarchy are designed to support these goals.
+                                </p>
                             </div>
 
                             <div className="focus-card">
@@ -176,6 +204,10 @@ export function WebsiteAppDevelopment({ onBack }: { onBack: () => void }) {
                         <div className="outcome-box">
                             <strong>Outcome:</strong> Websites that increase trust, improve conversion, and support long-term digital growth.
                         </div>
+
+                        <div style={{ marginTop: '40px' }}>
+                            <Websitedesignpricedetails />
+                        </div>
                     </div>
                 </section>
             )}
@@ -184,7 +216,9 @@ export function WebsiteAppDevelopment({ onBack }: { onBack: () => void }) {
                 <section className="service-content">
                     <div className="content-container">
                         <h2>Application Design & Development</h2>
-                        <p>We help organizations conceptualize and build applications that simplify processes, enhance customer experience, and enable scale.</p>
+                        <p>
+                            We help organizations conceptualize and build applications that simplify processes, enhance customer experience, and enable scale.
+                        </p>
 
                         <div className="focus-areas">
                             <div className="focus-card">
@@ -234,6 +268,10 @@ export function WebsiteAppDevelopment({ onBack }: { onBack: () => void }) {
                         <div className="outcome-box">
                             <strong>Outcome:</strong> Reliable, purpose-built applications that improve efficiency and customer experience.
                         </div>
+
+                        <div style={{ marginTop: '40px' }}>
+                            <ApplicationPrice />
+                        </div>
                     </div>
                 </section>
             )}
@@ -252,6 +290,7 @@ export function WebsiteAppDevelopment({ onBack }: { onBack: () => void }) {
                                     <li>Existing digital gaps</li>
                                 </ul>
                             </div>
+
                             <div className="step">
                                 <div className="step-number">2</div>
                                 <h4>Design</h4>
@@ -261,6 +300,7 @@ export function WebsiteAppDevelopment({ onBack }: { onBack: () => void }) {
                                     <li>Technology and feature prioritization</li>
                                 </ul>
                             </div>
+
                             <div className="step">
                                 <div className="step-number">3</div>
                                 <h4>Build</h4>
@@ -270,6 +310,7 @@ export function WebsiteAppDevelopment({ onBack }: { onBack: () => void }) {
                                     <li>Content and feature integration</li>
                                 </ul>
                             </div>
+
                             <div className="step">
                                 <div className="step-number">4</div>
                                 <h4>Optimize</h4>
@@ -288,38 +329,20 @@ export function WebsiteAppDevelopment({ onBack }: { onBack: () => void }) {
                 <section className="service-content">
                     <div className="content-container">
                         <h2>Website & Application Design and Development — Pricing</h2>
-                        <div className="pricing-table-wrapper">
-                            <table className="pricing-table">
-                                <thead>
-                                    <tr>
-                                        <th>Service</th>
-                                        <th>Business Outcome</th>
-                                        <th>Price (₹)</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td className="service-name">Website Design & Development (Basic)</td>
-                                        <td className="outcome">Establishes a professional online presence that builds credibility</td>
-                                        <td className="price">From ₹5,000</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="service-name">Website Design & Development (Advanced)</td>
-                                        <td className="outcome">Supports lead generation, content scalability, and business growth</td>
-                                        <td className="price">From ₹15,000</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="service-name">Application Design & Development (Basic)</td>
-                                        <td className="outcome">Digitizes simple processes and improves user experience</td>
-                                        <td className="price">From ₹15,000</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="service-name">Application Design & Development (Advanced)</td>
-                                        <td className="outcome">Enables scalable operations, integrations, and long-term digital growth</td>
-                                        <td className="price">Custom</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <p style={{ marginBottom: '30px' }}>
+                            Explore our pricing options for website and application design and development services.
+                        </p>
+
+                        <div style={{ marginBottom: '40px' }}>
+                            <Websitedesignpricedetails />
+                        </div>
+
+                        <div style={{ marginBottom: '40px' }}>
+                            <Price />
+                        </div>
+
+                        <div style={{ marginBottom: '40px' }}>
+                            <ApplicationPrice />
                         </div>
 
                         <div className="cta-section">

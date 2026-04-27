@@ -101,12 +101,12 @@ export function DesignSystems({ onBack }: { onBack: () => void }) {
                     >
                         Design Capabilities
                     </button>
-                    <button
+                    {/* <button
                         className={`tab-button ${activeTab === 'pricing' ? 'active' : ''}`}
                         onClick={() => setActiveTab('pricing')}
                     >
                         Pricing
-                    </button>
+                    </button> */}
                 </div>
             </section>
 

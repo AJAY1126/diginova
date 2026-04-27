@@ -247,7 +247,7 @@ Priority 4 (Low): Response within 1 week
 
 - [ ] Domain name registered
 - [ ] SSL certificate installed
-- [ ] Email setup (hello@diginova.com working)
+- [ ] Email setup (diginova.scalex@gmail.com working)
 - [ ] Phone number verified (+91-7348001126)
 - [ ] Social media accounts created & linked
 - [ ] Analytics setup (Google Analytics, Meta Pixel)
@@ -323,7 +323,7 @@ Priority 4 (Low): Response within 1 week
 ```
 Business Name: DIGINOVA
 Phone: +91-7348001126
-Email: hello@diginova.com
+Email: diginova.scalex@gmail.com
 Logo Symbols: ✦ + 🚀
 ```
 

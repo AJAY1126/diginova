@@ -84,7 +84,7 @@ onClick={() => {
 ```tsx
 // BEFORE:
 <strong>Email</strong>
-<p>hello@diginova.com</p>
+<p>diginova.scalex@gmail.com</p>
 <strong>Phone</strong>
 <p>+1 (555) 123-4567</p>
 
@@ -95,7 +95,7 @@ onClick={() => {
   <strong>DIGINOVA</strong>
 </p>
 <strong>📧 Email</strong>
-<p>hello@diginova.com</p>
+<p>diginova.scalex@gmail.com</p>
 ```
 
 **F. Complete Footer Redesign (Lines 314-362)**
@@ -241,7 +241,7 @@ color: rgba(26, 40, 71, 0.75);
 | Primary Contact | Email first        | Phone first                    |
 | Phone Number    | +1 (555) 123-4567  | +91-7348001126                 |
 | Business Name   | Not shown          | "DIGINOVA" shown with phone    |
-| Email           | hello@diginova.com | hello@diginova.com (unchanged) |
+| Email           | diginova.scalex@gmail.com | diginova.scalex@gmail.com (unchanged) |
 
 ---
 

@@ -62,7 +62,7 @@
 **Before:**
 
 ```
-Email: hello@diginova.com
+Email: diginova.scalex@gmail.com
 Phone: +1 (555) 123-4567
 ```
 
@@ -71,7 +71,7 @@ Phone: +1 (555) 123-4567
 ```
 📞 Phone: +91-7348001126
    DIGINOVA
-📧 Email: hello@diginova.com
+📧 Email: diginova.scalex@gmail.com
 ```
 
 **Changes:**
@@ -104,7 +104,7 @@ Phone: +1 (555) 123-4567
 #### **Contact Info**
 
 - Phone: +91-7348001126 (DIGINOVA)
-- Email: hello@diginova.com
+- Email: diginova.scalex@gmail.com
 
 #### **Footer Bottom**
 
@@ -233,7 +233,7 @@ Background: #f8f9fc (Light)
 
 1. Domain name (pending decision)
 2. Hosting provider (Vercel, Netlify, or traditional)
-3. Email setup for hello@diginova.com
+3. Email setup for diginova.scalex@gmail.com
 4. Phone number verification (+91-7348001126)
 5. Social media accounts linked
 6. Analytics configured (Google Analytics)
@@ -326,7 +326,7 @@ src/
 
 - Name: DIGINOVA
 - Phone: +91-7348001126
-- Email: hello@diginova.com
+- Email: diginova.scalex@gmail.com
 - Symbols: ✦ + 🚀
 
 **Current Status:** Ready for deployment! ✅

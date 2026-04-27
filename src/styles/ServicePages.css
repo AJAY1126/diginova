@@ -34,7 +34,8 @@
 
 .service-subtitle {
   font-size: 1.4rem;
-  color: #e10600; /* Primary Red */
+  color: #e10600;
+  /* Primary Red */
   margin-bottom: 20px;
   font-weight: 600;
 }
@@ -94,6 +95,7 @@
   color: #ffffff;
   box-shadow: 0 6px 18px rgba(225, 6, 0, 0.25);
 }
+
 /* ============================= */
 /* SERVICE CONTENT - WHITE THEME */
 /* ============================= */
@@ -210,6 +212,7 @@
   margin-bottom: 0;
   color: #555555;
 }
+
 /* ============================= */
 /* FEATURES GRID */
 /* ============================= */
@@ -364,6 +367,7 @@
   margin-bottom: 10px;
   color: #e10600;
 }
+
 /* ============================= */
 /* PRICING TABLE */
 /* ============================= */
@@ -511,6 +515,7 @@
   border-bottom: 1px solid #eeeeee;
   padding-bottom: 20px;
 }
+
 /* ============================= */
 /* PACKAGE HEADER */
 /* ============================= */
@@ -739,7 +744,9 @@
   padding: 20px;
   margin: 20px 0;
   color: #7a4f01;
-}/* ============================= */
+}
+
+/* ============================= */
 /* APPROACH CARDS */
 /* ============================= */
 
@@ -874,5 +881,170 @@
 
   .package-price {
     font-size: 1.4rem;
+  }
+}
+
+.pricing-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 20px;
+  border-radius: 14px;
+  background: #f7f7f7;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.pricing-comparison-table {
+  width: 100%;
+  min-width: 1100px;
+  border-collapse: collapse;
+  font-family: "Segoe UI", sans-serif;
+  background: #fff;
+}
+
+.pricing-comparison-table thead th {
+  background: #e10600;
+  color: #fff;
+  padding: 16px 12px;
+  font-size: 15px;
+  text-align: center;
+  font-weight: 700;
+  border: 1px solid #dcdcdc;
+}
+
+.pricing-comparison-table tbody td {
+  padding: 14px 12px;
+  border: 1px solid #e5e5e5;
+  text-align: center;
+  font-size: 14px;
+  color: #222;
+  background: #fafafa;
+}
+
+.pricing-comparison-table tbody tr:nth-child(even) td {
+  background: #f1f1f1;
+}
+
+.pricing-comparison-table tbody td:first-child {
+  text-align: left;
+  font-weight: 600;
+  min-width: 220px;
+  background: #f8f8f8;
+}
+
+.price-row td {
+  background: #fff7f7 !important;
+  color: #111;
+  font-size: 16px;
+}
+
+.price-row td strong {
+  color: #000;
+}
+
+.cta-section {
+  text-align: center;
+  margin-top: 30px;
+  padding: 25px 15px;
+}
+
+.btn-large {
+  padding: 12px 28px;
+  font-size: 16px;
+  border-radius: 10px;
+}
+
+.pricing-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-top: 20px;
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  padding: 0;
+}
+
+.pricing-comparison-table {
+  width: 100%;
+  min-width: 1200px;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.pricing-comparison-table th,
+.pricing-comparison-table td {
+  border: 1px solid #dddddd;
+  padding: 14px 12px;
+  font-size: 14px;
+  vertical-align: middle;
+  word-wrap: break-word;
+}
+
+.pricing-comparison-table thead th {
+  background: #e10600;
+  color: #ffffff;
+  text-align: center;
+  font-weight: 700;
+}
+
+.pricing-comparison-table tbody td {
+  text-align: center;
+  background: #f7f7f7;
+}
+
+.pricing-comparison-table tbody tr:nth-child(even) td {
+  background: #efefef;
+}
+
+.pricing-comparison-table tbody td:first-child,
+.pricing-comparison-table thead th:first-child {
+  text-align: left;
+  min-width: 240px;
+  width: 240px;
+  font-weight: 600;
+  padding-left: 16px;
+}
+
+.pricing-comparison-table thead th:not(:first-child) {
+  min-width: 160px;
+}
+
+.price-row td {
+  background: #fff6f6 !important;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.cta-section {
+  text-align: center;
+  padding: 18px 20px 24px;
+  background: #ffffff;
+}
+
+.pricing-cta-btn {
+  background: #e10600;
+  color: #ffffff;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  min-width: 320px;
+}
+
+.pricing-cta-btn:hover {
+  background: #c90500;
+}
+
+@media (max-width: 768px) {
+  .pricing-comparison-table {
+    min-width: 1100px;
+  }
+
+  .pricing-cta-btn {
+    width: 100%;
+    min-width: unset;
   }
 }

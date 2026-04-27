@@ -31,7 +31,7 @@ function App() {
   const [logoExpanded, setLogoExpanded] = useState(false)
   const [currentPage, setCurrentPage] = useState<'home' | 'design' | 'socialmedia' | 'webdev' | 'management' | 'influencer' | 'smallbusiness'>('home')
   const cursorRef = useRef<HTMLDivElement>(null)
-
+  const [selectedPlan, setSelectedPlan] = useState<number>(2); // 1=Lead,2=Business,3=Pro
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY })
@@ -112,9 +112,9 @@ function App() {
   //   <span className="material-symbols-outlined icon">{name}</span>
   // );
 
-  const [selectedPlan, setSelectedPlan] = useState<number>(2); // 1=Lead,2=Business,3=Pro
 
-  const col = (i:number) => selectedPlan === i ? "col-active" : "";
+
+  const col = (i: number) => selectedPlan === i ? "col-active" : "";
   const planData = {
     1: { name: "Lead Landing Plus", price: "₹4,999" },
     2: { name: "Business Website", price: "₹9,999" },
@@ -413,91 +413,91 @@ function App() {
       </section>
 
 
-      
+
 
       <section className="pricing" id='price'>
         <div className="pricing-container section-header">
-              {/* ===== TITLE ===== */}
-              <h2 className="pricing-title ">Simple, Transparent Pricing</h2>
-              <p>
-                Choose the plan that's right for your business.
-              </p>
-              {/* <h2 className="pricing-title">Detailed Feature Comparison</h2> */}
+          {/* ===== TITLE ===== */}
+          <h2 className="pricing-title ">Simple, Transparent Pricing</h2>
+          <p>
+            Choose the plan that's right for your business.
+          </p>
+          {/* <h2 className="pricing-title">Detailed Feature Comparison</h2> */}
 
-              {/* ===== TABLE ===== */}
-              <div className="table-wrapper">
-                <table className="feature-table">
-                  <thead>
-                    <tr>
-                      <th>Features</th>
-                      <th >Lead Landing Plus</th>
-                      <th >Business Website</th>
-                      <th >Pro Website + AI Agent</th>
-                    </tr>
-                  </thead>
+          {/* ===== TABLE ===== */}
+          <div className="table-wrapper">
+            <table className="feature-table">
+              <thead>
+                <tr>
+                  <th>Features</th>
+                  <th >Lead Landing Plus</th>
+                  <th >Business Website</th>
+                  <th >Pro Website + AI Agent</th>
+                </tr>
+              </thead>
 
-                  <tbody>
-                    <tr><td>Structure</td><td className={col(1)}>1-page Landing</td><td className={`bold ${col(2)}`}>Multi-page (up to 5)</td><td className={`bold ${col(3)}`}>Multi-page (up to 10)</td></tr>
-                    <tr><td>Lead form (Email)</td><td className={col(1)}><Icon name="check_circle"/></td><td className={col(2)}><Icon name="check_circle"/></td><td className={col(3)}><Icon name="check_circle"/></td></tr>
-                    <tr><td>WhatsApp & Call Buttons</td><td className={col(1)}><Icon name="check_circle"/></td><td className={col(2)}><Icon name="check_circle"/></td><td className={col(3)}><Icon name="check_circle"/></td></tr>
-                    <tr><td>Google Maps Embed</td><td className={col(1)}><Icon name="check_circle"/></td><td className={col(2)}><Icon name="check_circle"/></td><td className={col(3)}><Icon name="check_circle"/></td></tr>
-                    <tr><td>SEO Optimization</td><td className={col(1)}>Basic (Title/Meta)</td><td className={col(2)}>Standard</td><td className={`bold ${col(3)}`}>Advanced</td></tr>
-                    <tr><td>Google Analytics</td><td className={col(1)}><Icon name="cancel" /></td><td className={col(2)}><Icon name="check_circle"/></td><td className={`bold ${col(3)}`}><Icon name="check_circle"/></td></tr>
-                    <tr><td>Domain (1 Year)</td><td className={col(1)}><Icon name="cancel"/></td><td className={col(2)}><Icon name="check_circle"/></td><td className={col(3)}><Icon name="check_circle"/></td></tr>
-                    <tr><td>Hosting + SSL</td><td className={col(1)}><Icon name="cancel"/></td><td className={col(2)}><Icon name="check_circle"/></td><td className={col(3)}><Icon name="check_circle"/></td></tr>
-                    <tr><td>Blog Setup</td><td className={col(1)}><Icon name="cancel"/></td><td className={col(2)}>Add-on</td><td className={col(3)}><Icon name="check_circle"/></td></tr>
-                    <tr><td>Copywriting</td><td className={col(1)}><Icon name="cancel"/></td><td className={col(2)}>Add-on</td><td className={`bold ${col(3)}`}>Basic Included</td></tr>
-                    <tr><td>AI Agent</td><td className={col(1)}><Icon name="cancel"/></td><td className={col(2)}><Icon name="cancel"/></td><td className={col(3)}><Icon name="check_circle"/></td></tr>
-                    <tr><td>Revisions</td><td className={col(1)}>1</td><td className={`bold ${col(2)}`}>2</td><td className={`bold ${col(3)}`}>3</td></tr>
-                    <tr><td>Timeline</td><td className={col(1)}>24-48 hrs</td><td className={col(2)}>5-7 days</td><td className={col(3)}>2-4 weeks</td></tr>
+              <tbody>
+                <tr><td>Structure</td><td className={col(1)}>1-page Landing</td><td className={`bold ${col(2)}`}>Multi-page (up to 5)</td><td className={`bold ${col(3)}`}>Multi-page (up to 10)</td></tr>
+                <tr><td>Lead form (Email)</td><td className={col(1)}><Icon name="check_circle" /></td><td className={col(2)}><Icon name="check_circle" /></td><td className={col(3)}><Icon name="check_circle" /></td></tr>
+                <tr><td>WhatsApp & Call Buttons</td><td className={col(1)}><Icon name="check_circle" /></td><td className={col(2)}><Icon name="check_circle" /></td><td className={col(3)}><Icon name="check_circle" /></td></tr>
+                <tr><td>Google Maps Embed</td><td className={col(1)}><Icon name="check_circle" /></td><td className={col(2)}><Icon name="check_circle" /></td><td className={col(3)}><Icon name="check_circle" /></td></tr>
+                <tr><td>SEO Optimization</td><td className={col(1)}>Basic (Title/Meta)</td><td className={col(2)}>Standard</td><td className={`bold ${col(3)}`}>Advanced</td></tr>
+                <tr><td>Google Analytics</td><td className={col(1)}><Icon name="cancel" /></td><td className={col(2)}><Icon name="check_circle" /></td><td className={`bold ${col(3)}`}><Icon name="check_circle" /></td></tr>
+                <tr><td>Domain (1 Year)</td><td className={col(1)}><Icon name="cancel" /></td><td className={col(2)}><Icon name="check_circle" /></td><td className={col(3)}><Icon name="check_circle" /></td></tr>
+                <tr><td>Hosting + SSL</td><td className={col(1)}><Icon name="cancel" /></td><td className={col(2)}><Icon name="check_circle" /></td><td className={col(3)}><Icon name="check_circle" /></td></tr>
+                <tr><td>Blog Setup</td><td className={col(1)}><Icon name="cancel" /></td><td className={col(2)}>Add-on</td><td className={col(3)}><Icon name="check_circle" /></td></tr>
+                <tr><td>Copywriting</td><td className={col(1)}><Icon name="cancel" /></td><td className={col(2)}>Add-on</td><td className={`bold ${col(3)}`}>Basic Included</td></tr>
+                <tr><td>AI Agent</td><td className={col(1)}><Icon name="cancel" /></td><td className={col(2)}><Icon name="cancel" /></td><td className={col(3)}><Icon name="check_circle" /></td></tr>
+                <tr><td>Revisions</td><td className={col(1)}>1</td><td className={`bold ${col(2)}`}>2</td><td className={`bold ${col(3)}`}>3</td></tr>
+                <tr><td>Timeline</td><td className={col(1)}>24-48 hrs</td><td className={col(2)}>5-7 days</td><td className={col(3)}>2-4 weeks</td></tr>
 
-                    {/* Bottom select cards inside table */}
-                    <tr className="select-row">
-                      <td>Choose the best plan for you:</td>
+                {/* Bottom select cards inside table */}
+                <tr className="select-row">
+                  <td>Choose the best plan for you:</td>
 
-                      <td><div
-                        onClick={()=>setSelectedPlan(1)}
-                        className={`mini-card ${selectedPlan===1?"active":""}`}>
-                        <p>Lead Landing Plus</p><h4>₹4,999</h4>
-                      </div></td>
+                  <td><div
+                    onClick={() => setSelectedPlan(1)}
+                    className={`mini-card ${selectedPlan === 1 ? "active" : ""}`}>
+                    <p>Lead Landing Plus</p><h4>₹4,999</h4>
+                  </div></td>
 
-                      <td>
-                        <div
-                          onClick={()=>setSelectedPlan(2)}
-                          className={`mini-card ${selectedPlan===2?"active":""}`}>
-                          {/* <Icon name="check_circle"/> */}
-                          <p>Business Website</p><h4>₹9,999</h4>
-                        </div>
-                      </td>
+                  <td>
+                    <div
+                      onClick={() => setSelectedPlan(2)}
+                      className={`mini-card ${selectedPlan === 2 ? "active" : ""}`}>
+                      {/* <Icon name="check_circle"/> */}
+                      <p>Business Website</p><h4>₹9,999</h4>
+                    </div>
+                  </td>
 
-                      <td>
-                        <div
-                          onClick={()=>setSelectedPlan(3)}
-                          className={`mini-card ${selectedPlan===3?"active":""}`}>
-                          <p>Pro + AI Agent</p><h4>₹49,999</h4>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td colSpan={4}>
-                        <div className="wa-btn-wrap">
-                          <button className="wa-btn" onClick={sendWhatsApp}>
-                            Continue with {planData[selectedPlan as keyof typeof planData].name}
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+                  <td>
+                    <div
+                      onClick={() => setSelectedPlan(3)}
+                      className={`mini-card ${selectedPlan === 3 ? "active" : ""}`}>
+                      <p>Pro + AI Agent</p><h4>₹49,999</h4>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td colSpan={4}>
+                    <div className="wa-btn-wrap">
+                      <button className="wa-btn" onClick={sendWhatsApp}>
+                        Continue with {planData[selectedPlan as keyof typeof planData].name}
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
-              {/* ===== PLAN CARDS ===== */}
-              {/* <div className="plan-header">
+          {/* ===== PLAN CARDS ===== */}
+          {/* <div className="plan-header">
                 <h1>Choose Your Plan</h1>
                 <p>Choose the perfect plan for your business growth.</p>
               </div> */}
 
-              {/* <div className="cards">
+          {/* <div className="cards">
                 <div className="card">
                   <span className="tag">NEW</span>
                   <h3>Lead Landing Plus</h3>
@@ -520,8 +520,8 @@ function App() {
                 </div>
               </div> */}
 
-              {/* ===== CTA ===== */}
-              {/* <div className="cta mt-5">
+          {/* ===== CTA ===== */}
+          {/* <div className="cta mt-5">
                 <div>
                   <h2>Need a custom enterprise solution?</h2>
                   <p>We offer specialized development for large scale platforms.</p>
@@ -532,12 +532,12 @@ function App() {
       </section>
       <section className='section-cta'>
         <div className="cta mt-5">
-                <div>
-                  <h2>Need a custom enterprise solution?</h2>
-                  <p>We offer specialized development for large scale platforms.</p>
-                </div>
-                <button>Talk to an Expert</button>
-              </div>
+          <div>
+            <h2>Need a custom enterprise solution?</h2>
+            <p>We offer specialized development for large scale platforms.</p>
+          </div>
+          <button>Talk to an Expert</button>
+        </div>
 
       </section>
 
@@ -622,7 +622,7 @@ function App() {
           </div>
           <div className="footer-section">
             <h4>Contact</h4>
-            <p>hello@diginova.com</p>
+            <p>diginova.scalex@gmail.com</p>
             <p>+91-73959 87551</p>
           </div>
         </div>
@@ -670,7 +670,7 @@ function ContactSection() {
           from_brand: brand,
           from_email: 'contact@diginova.com', // This will appear as sender
           message: message,
-          to_email: 'hello@diginova.com', // Your email address where you want to receive messages
+          to_email: 'diginova.scalex@gmail.com', // Your email address where you want to receive messages
         }
       )
 
@@ -730,23 +730,37 @@ function ContactSection() {
                 </div>
                 <div>
                   <strong>📧 Email</strong>
-                  <p>hello@diginova.com</p>
+                  <p>diginova.scalex@gmail.com</p>
                 </div>
               </div>
 
               <div className="social-icons" aria-hidden>
-                {/* Inline SVG icons */}
-                <a href="#" className="social" aria-label="Twitter">
-                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53A4.48 4.48 0 0 0 22.43 1s-1 .6-1.46.76A4.48 4.48 0 0 0 16.5 0c-2.5 0-4.5 2.2-4.5 4.9 0 .38.04.75.12 1.1C8 6 4.3 4 1.9 1.2c-.4.7-.6 1.5-.6 2.4 0 1.7.8 3.2 2 4.1A4.4 4.4 0 0 1 .8 7v.1c0 2.3 1.6 4.2 3.8 4.6-.3.08-.6.12-.9.12-.2 0-.4 0-.6-.06.4 1.3 1.6 2.3 3 2.3A9 9 0 0 1 0 18.6a12.7 12.7 0 0 0 6.9 2c8.3 0 12.9-7.6 12.9-14.2v-.65A9.1 9.1 0 0 0 23 3z" /></svg>
+                {/* Facebook */}
+                <a href="https://www.facebook.com/diginovagrowth" target="_blank" rel="noopener noreferrer" className="social" aria-label="Facebook">
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M22 12a10 10 0 1 0-11.5 9.9v-7H7.5v-3h3V9.5c0-3 1.8-4.7 4.5-4.7 1.3 0 2.7.2 2.7.2v3h-1.5c-1.5 0-2 .9-2 1.9V12h3.4l-.5 3h-2.9v7A10 10 0 0 0 22 12z" />
+                  </svg>
                 </a>
-                <a href="#" className="social" aria-label="LinkedIn">
-                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.49 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.5 8h3.98V24H.5V8zM8.5 8h3.82v2.17h.05c.53-1 1.83-2.17 3.76-2.17 4.02 0 4.76 2.65 4.76 6.1V24h-3.98v-7.4c0-1.77-.03-4.05-2.47-4.05-2.48 0-2.86 1.94-2.86 3.94V24H8.5V8z" /></svg>
+
+                {/* Instagram */}
+                <a href="https://www.instagram.com/diginova.growth/" target="_blank" rel="noopener noreferrer" className="social" aria-label="Instagram">
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 5.8a4.2 4.2 0 1 0 0 8.4 4.2 4.2 0 0 0 0-8.4zM19.5 6.1a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4z" />
+                  </svg>
                 </a>
-                <a href="#" className="social" aria-label="Instagram">
-                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 5.8a4.2 4.2 0 1 0 0 8.4 4.2 4.2 0 0 0 0-8.4zM19.5 6.1a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4z" /></svg>
+
+                {/* LinkedIn */}
+                <a href="https://www.linkedin.com/company/diginovascalex/" target="_blank" rel="noopener noreferrer" className="social" aria-label="LinkedIn">
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M4.98 3.5C4.98 4.88 3.86 6 2.49 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.5 8h3.98V24H.5V8zM8.5 8h3.82v2.17h.05c.53-1 1.83-2.17 3.76-2.17 4.02 0 4.76 2.65 4.76 6.1V24h-3.98v-7.4c0-1.77-.03-4.05-2.47-4.05-2.48 0-2.86 1.94-2.86 3.94V24H8.5V8z" />
+                  </svg>
                 </a>
-                <a href="#" className="social" aria-label="GitHub">
-                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5A12 12 0 0 0 0 12.5c0 5.3 3.4 9.8 8.2 11.4.6.1.8-.3.8-.6v-2.1c-3.3.7-4-1.6-4-1.6-.5-1.3-1.2-1.6-1.2-1.6-1-.7.1-.7.1-.7 1.1.1 1.7 1.1 1.7 1.1 1 .1 1.6.7 1.8 1 .6 1.1 1.6.8 2 .6.1-.7.4-1.2.6-1.5-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.6.1-3.2 0 0 1-.3 3.4 1.2a11.6 11.6 0 0 1 6.2 0C18 6.9 19 7.2 19 7.2c.6 1.6.2 2.9.1 3.2.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.3.7.9.7 1.9v2.9c0 .3.2.7.8.6A12 12 0 0 0 12 .5z" /></svg>
+
+                {/* WhatsApp */}
+                <a href="https://wa.me/917395987551?text=Hi%20I%20am%20interested%20in%20your%20services" target="_blank" rel="noopener noreferrer" className="social" aria-label="WhatsApp">
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20.52 3.48A11.8 11.8 0 0 0 12.01 0C5.38 0 .01 5.37.01 12c0 2.12.55 4.18 1.6 6.01L0 24l6.2-1.6A11.9 11.9 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.2-3.48-8.52zM12 21.8c-1.8 0-3.56-.48-5.1-1.38l-.36-.21-3.68.95.98-3.58-.23-.37A9.8 9.8 0 0 1 2.2 12c0-5.4 4.4-9.8 9.8-9.8 2.62 0 5.08 1.02 6.93 2.87A9.75 9.75 0 0 1 21.8 12c0 5.4-4.4 9.8-9.8 9.8zm5.39-7.37c-.3-.15-1.78-.88-2.06-.98-.28-.1-.48-.15-.69.15-.2.3-.79.98-.97 1.18-.18.2-.36.22-.66.07-.3-.15-1.28-.47-2.43-1.5-.9-.8-1.5-1.78-1.67-2.08-.18-.3-.02-.46.13-.6.13-.13.3-.36.45-.54.15-.18.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.69-1.66-.94-2.27-.24-.58-.49-.5-.69-.51h-.59c-.2 0-.52.07-.8.37-.28.3-1.06 1.04-1.06 2.54s1.09 2.95 1.24 3.16c.15.2 2.14 3.26 5.18 4.57.72.31 1.28.5 1.72.64.72.23 1.38.2 1.9.12.58-.09 1.78-.73 2.03-1.43.25-.7.25-1.3.18-1.43-.07-.13-.28-.2-.58-.35z" />
+                  </svg>
                 </a>
               </div>
             </div>
